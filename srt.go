@@ -29,6 +29,8 @@ func main() {
 			return
 		}
 		list.Keyword = input
+		videoName.Name = input
+		videoName.NameWithoutExt = input
 	} else {
 		list.Keyword = videoName.Keyword
 	}
@@ -68,10 +70,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Print("downloading")
-
 	// savedFile, err := os.Create(videoName.NameWithoutExt)
-	savedFile, err := os.OpenFile(videoName.NameWithoutExt+content.Ext, os.O_CREATE|os.O_RDWR, 0644)
+	savedFileName := videoName.NameWithoutExt + content.Ext
+	savedFile, err := os.OpenFile(savedFileName, os.O_CREATE|os.O_RDWR, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -81,6 +82,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("done.")
+	fmt.Println(content.Title, ">", savedFileName)
 
 }

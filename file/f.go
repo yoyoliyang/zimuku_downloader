@@ -15,20 +15,28 @@ type VideoName struct {
 // GetVideoName返回当前目录的视频文件名称
 // 如果当前目录不包含视频文件，不进行错误处理，交由主函数进行手动处理，下同
 func (v *VideoName) GetVideoInfo() (*VideoName, error) {
+	// 此处需要初始化v，避免其他函数调用时，无法处理错误
+	v = &VideoName{
+		Name:           "",
+		Keyword:        "",
+		NameWithoutExt: "",
+	}
 	f, err := os.Open(".")
 	if err != nil {
-		return nil, err
+		return v, err
 	}
 	fList, err := f.Readdir(0)
 	if err != nil {
-		return nil, err
+		return v, err
 	}
 
 	for _, item := range fList {
 		n := item.Name()
-		if n[len(n)-4:] == ".mp4" || n[len(n)-4:] == ".mkv" {
-			v.Name = n
-			v.NameWithoutExt = n[:len(n)-4]
+		if len(n) > 4 {
+			if n[len(n)-4:] == ".mp4" || n[len(n)-4:] == ".mkv" {
+				v.Name = n
+				v.NameWithoutExt = n[:len(n)-4]
+			}
 		}
 	}
 
@@ -36,7 +44,7 @@ func (v *VideoName) GetVideoInfo() (*VideoName, error) {
 	re := regexp.MustCompile(`(.*?)\.(\d{4}?)\..*\.(mp4|mkv)`)
 	result := re.FindStringSubmatch(v.Name)
 	if len(result) == 0 {
-		return nil, nil
+		return v, nil
 	}
 
 	fmt.Println("发现视频文件：", result[0])

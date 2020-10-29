@@ -1,8 +1,8 @@
 package download
 
 import (
+	"bytes"
 	"errors"
-	"io/ioutil"
 	"net/http"
 	"regexp"
 
@@ -61,10 +61,12 @@ func (d *DlContent) GetFile() ([]byte, error) {
 	}
 	defer resp.Body.Close()
 
-	data, err := ioutil.ReadAll(resp.Body)
+	data := &bytes.Buffer{}
+	err = CopyWithProgress(data, resp)
 	if err != nil {
 		return nil, err
 	}
-	return data, nil
+
+	return data.Bytes(), nil
 
 }

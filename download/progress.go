@@ -34,7 +34,7 @@ func CopyWithProgress(dst *bytes.Buffer, src *http.Response) error {
 					fmt.Print("\r", c, "/", src.ContentLength, "\n")
 					done <- true
 				}
-				time.Sleep(time.Microsecond)
+				time.Sleep(time.Second / 2)
 			}
 		}
 	}()

@@ -65,19 +65,30 @@ func main() {
 	//  根据content处理下载
 	dlContent := &download.DlContent{}
 	dlContent.ID = content.ID
-	SubData, err := dlContent.GetFile()
+	bs, err := dlContent.GetFile()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// savedFile, err := os.Create(videoName.NameWithoutExt)
-	savedFileName := videoName.NameWithoutExt + content.Ext
+	// 获取到最终下载的文件字节切片后，进行文件类型检测，并根据文件类型来具体操作（解压或重命名）
+	var savedFileName = videoName.NameWithoutExt
+	switch {
+	case file.IsAss(bs) == true:
+		savedFileName += ".ass"
+	case file.IsRar(bs) == true:
+		savedFileName += ".rar"
+	case file.IsZip(bs) == true:
+		savedFileName += ".zip"
+	default:
+		savedFileName += ".srt"
+	}
+
 	savedFile, err := os.OpenFile(savedFileName, os.O_CREATE|os.O_RDWR, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	_, err = savedFile.Write(SubData)
+	_, err = savedFile.Write(bs)
 	if err != nil {
 		log.Fatal(err)
 	}

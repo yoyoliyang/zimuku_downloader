@@ -20,7 +20,6 @@ type Content struct {
 	Title  string
 	Link   string
 	DLNums float64 // DLNums为下载次数,判断字幕质量
-	Ext    string  // 字幕文件扩展名
 }
 
 // Get根据List的Keyword返回一个包含字幕Content列表的List
@@ -69,19 +68,6 @@ func (l *List) Get() (*List, error) {
 		c.Link = link
 		c.DLNums = dlNums
 		c.ID = string(id[1])
-		// 字幕文件扩展名处理，主要用于处理含文件类型比如srt,ass等名称的字幕，提取保存到c.Ext
-		switch title[len(title)-4:] {
-		case ".srt":
-			c.Ext = ".srt"
-		case ".ass":
-			c.Ext = ".ass"
-		case ".rar":
-			c.Ext = ".rar"
-		case ".zip":
-			c.Ext = ".zip"
-		default:
-			c.Ext = ""
-		}
 
 		list.Content = append(list.Content, *c)
 

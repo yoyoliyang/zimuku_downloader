@@ -12,7 +12,7 @@ import (
 
 var (
 	zipHeader = [...]byte{'\x50', '\x4b', '\x03', '\x04'}
-	rarHeader = [...]byte{'\x52', '\x61', '\x72', '\x21', '\x1A', '\x07', '\x00'}
+	rarHeader = [...]byte{'\x52', '\x61', '\x72', '\x21', '\x1A', '\x07'}
 	ass       = "[Script"
 )
 

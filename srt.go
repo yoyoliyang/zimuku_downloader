@@ -77,8 +77,10 @@ func main() {
 		savedFileName += ".ass"
 	case file.IsRar(bs) == true:
 		savedFileName += ".rar"
+		defer file.ExtractFile(savedFileName)
 	case file.IsZip(bs) == true:
 		savedFileName += ".zip"
+		defer file.ExtractFile(savedFileName)
 	default:
 		savedFileName += ".srt"
 	}

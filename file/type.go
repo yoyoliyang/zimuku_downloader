@@ -2,6 +2,7 @@ package file
 
 import (
 	"bytes"
+	"fmt"
 	"strings"
 )
 
@@ -17,19 +18,19 @@ var (
 )
 
 func IsAss(bs []byte) bool {
-	res := make([]byte, 1)
+	res := make([]byte, 0)
 	for _, v := range string(bs[:16]) {
 		switch string(v) {
 		case "[":
-			res = append(res[:], byte(v))
+			res = append(res, byte(v))
 		case "S":
-			res = append(res[:], byte(v))
+			res = append(res, byte(v))
 		case "c":
-			res = append(res[:], byte(v))
+			res = append(res, byte(v))
 		}
 	}
 
-	if strings.HasPrefix(ass, string(res)) {
+	if len(res) == 3 && strings.HasPrefix(ass, string(res)) {
 		return true
 	}
 	return false

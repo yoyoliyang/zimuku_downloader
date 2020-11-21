@@ -8,7 +8,7 @@ import (
 	//	"strings"
 )
 
-// Choose输入字符串，返回0（回车）或数字（所选的）
+// Choose 输入字符串，返回0（回车）或数字（所选的）
 func Choose(rang uint8) uint8 {
 	s := bufio.NewScanner(os.Stdin)
 	for {

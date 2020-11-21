@@ -11,7 +11,7 @@ import (
 var searchURL = "http://zimuku.la/search?q="
 
 type List struct {
-	Keyword string
+	Keyword string // 搜索关键字
 	Content []Content
 }
 
@@ -80,7 +80,7 @@ func (l *List) Get() (*List, error) {
 
 }
 
-// GetMostDownloads获取最多下载次数的字幕Content
+// GetMostDownloads 获取最多下载次数的字幕Content
 func (l *List) GetMostDownloads() (*Content, error) {
 	mostDownload := &Content{
 		DLNums: 0,

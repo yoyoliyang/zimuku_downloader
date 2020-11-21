@@ -31,12 +31,12 @@ func main() {
 		}
 	} else {
 		// 自动探测当前目录视频文件
-		videoName, err := videoName.GetVideoInfo()
+		vn, err := videoName.GetVideoInfo()
 		if err != nil {
 			log.Fatal(err)
 		}
-		if videoName.Name != "" {
-			fmt.Println("发现当前目录视频文件", videoName.Name, "关键字：", videoName.Keyword)
+		if vn.Name != "" {
+			videoName = vn
 		}
 	}
 

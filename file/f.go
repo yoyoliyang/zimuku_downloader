@@ -6,13 +6,14 @@ import (
 	"regexp"
 )
 
+// VideoName 将要保存的文件的名称等
 type VideoName struct {
-	Name           string
-	Keyword        string
+	Name           string // 文件名称
+	Keyword        string // 自动探测目录里面的视频文件的搜索关键字，提供给search模块
 	NameWithoutExt string
 }
 
-// GetVideoName返回当前目录的视频文件名称
+// GetVideoInfo 返回当前目录的视频文件名称
 // 如果当前目录不包含视频文件，不进行错误处理，交由主函数进行手动处理，下同
 func (v *VideoName) GetVideoInfo() (*VideoName, error) {
 	// 此处需要初始化v，避免其他函数调用时，无法处理错误

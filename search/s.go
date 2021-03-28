@@ -8,7 +8,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-var searchURL = "http://zimuku.la/search?q="
+var searchURL = "http://zmk.pw/search?q="
 
 type List struct {
 	Keyword string // 搜索关键字
